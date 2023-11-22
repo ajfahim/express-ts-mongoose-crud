@@ -12,17 +12,14 @@ const createUser = async (req: Request, res: Response) => {
     // send response
     res.status(200).json({
       success: true,
-      message: 'created user successfully',
+      message: 'User created successfully!',
       data,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: 'something went wrong!',
-      error: {
-        code: 500,
-        description: 'something went wrong!',
-      },
+      error,
     });
   }
 };

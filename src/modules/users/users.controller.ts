@@ -47,7 +47,34 @@ const getUserList = async (req: Request, res: Response) => {
   }
 };
 
+const getUserById = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+
+    const data = await usersServices.getUserById(Number(userId));
+
+    if (!data) {
+      throw new Error('can not find user');
+    }
+
+    // send response
+    res.status(200).json({
+      success: true,
+      message: 'Fetched data successfully!',
+      data,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      //@ts-expect-error don't know the error type
+      message: error.message || 'something went wrong!',
+      error,
+    });
+  }
+};
+
 export const usersControllers = {
   createUser,
   getUserList,
+  getUserById,
 };

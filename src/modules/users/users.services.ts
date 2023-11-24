@@ -22,7 +22,18 @@ const getUserList = async () => {
   return result;
 };
 
+const getUserById = async (userId: number) => {
+  const result = await UsersModel.findOne(
+    //findOne is a builtin instance method
+    { userId },
+    { password: 0, _id: 0, __v: 0 },
+  );
+
+  return result;
+};
+
 export const usersServices = {
   createUser,
   getUserList,
+  getUserById,
 };

@@ -69,8 +69,38 @@ const getUserById = async (req: Request, res: Response) => {
   }
 };
 
+const updateUserById = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const updatedData = req.body.user;
+
+    //data validation
+    const zodParsedData = userValidationSchema.parse(updatedData);
+
+    const data = await usersServices.updateUserById(
+      Number(userId),
+      zodParsedData,
+    );
+
+    // send response
+    res.status(200).json({
+      success: true,
+      message: 'Updated data successfully!',
+      data,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      //@ts-expect-error don't know the error type
+      message: error.message || 'something went wrong!',
+      error,
+    });
+  }
+};
+
 export const usersControllers = {
   createUser,
   getUserList,
   getUserById,
+  updateUserById,
 };

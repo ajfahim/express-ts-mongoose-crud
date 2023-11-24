@@ -32,6 +32,21 @@ const getUserById = async (userId: number) => {
   if (!result) {
     throw new Error('can not find user');
   }
+
+  return result;
+};
+
+const updateUserById = async (userId: number, updatedData: TUser) => {
+  const exists = await UsersModel.findOne({ userId }); //built in instance method
+
+  if (!exists) {
+    throw new Error('user does not exist');
+  }
+
+  const result = await UsersModel.findOneAndUpdate({ userId }, updatedData, {
+    select: '-password -_id -__v',
+  });
+
   return result;
 };
 
@@ -39,4 +54,5 @@ export const usersServices = {
   createUser,
   getUserList,
   getUserById,
+  updateUserById,
 };

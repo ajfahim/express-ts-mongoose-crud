@@ -50,9 +50,20 @@ const updateUserById = async (userId: number, updatedData: TUser) => {
   return result;
 };
 
+const deleteUserById = async (userId: number) => {
+  const exists = await UsersModel.findOne({ userId }); //built in instance method
+
+  if (!exists) {
+    throw new Error('user does not exist');
+  }
+
+  await UsersModel.deleteOne({ userId });
+};
+
 export const usersServices = {
   createUser,
   getUserList,
   getUserById,
   updateUserById,
+  deleteUserById,
 };

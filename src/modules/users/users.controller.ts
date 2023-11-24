@@ -98,9 +98,32 @@ const updateUserById = async (req: Request, res: Response) => {
   }
 };
 
+const deleteUserById = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+
+    await usersServices.deleteUserById(Number(userId));
+
+    // send response
+    res.status(200).json({
+      success: true,
+      message: 'User deleted successfully!',
+      data: null,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      //@ts-expect-error don't know the error type
+      message: error.message || 'something went wrong!',
+      error,
+    });
+  }
+};
+
 export const usersControllers = {
   createUser,
   getUserList,
   getUserById,
   updateUserById,
+  deleteUserById,
 };

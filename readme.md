@@ -2,6 +2,8 @@
 
 Node.js Express application with TypeScript as the programming language, integrating MongoDB with Mongoose for user data and order management. Ensure data integrity through validation Zod.
 
+**Live Link:** [https://vercel.com/ajfahim/express-typescript-mongoose-crud](https://vercel.com/ajfahim/express-typescript-mongoose-crud)
+
 ## Table of Contents
 
 - [Overview](#overview)

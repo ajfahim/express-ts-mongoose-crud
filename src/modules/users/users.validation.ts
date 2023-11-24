@@ -1,8 +1,12 @@
 import { z } from 'zod';
 
 const fullNameValidationSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
+  firstName: z
+    .string()
+    .max(15, { message: 'first name can not be more than 15 characters' }),
+  lastName: z
+    .string()
+    .max(15, { message: 'last name can not be more than 15 characters' }),
 });
 
 // Define validation schema for TAddress
@@ -20,7 +24,10 @@ const orderValidationSchema = z.object({
 
 const userValidationSchema = z.object({
   userId: z.number(),
-  username: z.string(),
+  username: z
+    .string()
+    .min(5, { message: 'user name must contain at least 5 characters' })
+    .max(15, { message: 'user name can not be more than 15 characters' }),
   password: z.string(),
   fullName: fullNameValidationSchema,
   age: z.number(),

@@ -29,6 +29,9 @@ const getUserById = async (userId: number) => {
     { password: 0, _id: 0, __v: 0 },
   );
 
+  if (!result) {
+    throw new Error('can not find user');
+  }
   return result;
 };
 

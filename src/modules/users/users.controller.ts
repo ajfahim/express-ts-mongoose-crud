@@ -53,10 +53,6 @@ const getUserById = async (req: Request, res: Response) => {
 
     const data = await usersServices.getUserById(Number(userId));
 
-    if (!data) {
-      throw new Error('can not find user');
-    }
-
     // send response
     res.status(200).json({
       success: true,

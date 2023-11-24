@@ -34,13 +34,14 @@ const userSchema = new Schema<TUser>({
 });
 
 //hash password before storing
-userSchema.pre('save', async function () {
+userSchema.pre('save', async function (next) {
   const password = this.password;
   const hashedPassword = await bcrypt.hash(
     password,
     Number(config.bcrypt_salt_round),
   );
   this.password = hashedPassword;
+  next();
 });
 
 export const UsersModel = model<TUser>('User', userSchema);

@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { TAddress, TFullName, TOrder, TUser } from './users.interface';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 const fullNameSchema = new Schema<TFullName>({
   firstName: { type: String, required: true },
@@ -28,7 +30,17 @@ const userSchema = new Schema<TUser>({
   isActive: { type: Boolean, required: true },
   hobbies: [{ type: String, required: true }],
   address: { type: addressSchema, required: true },
-  orders: [{ type: ordersSchema, required: true }],
+  orders: [{ type: ordersSchema }],
+});
+
+//hash password before storing
+userSchema.pre('save', async function () {
+  const password = this.password;
+  const hashedPassword = await bcrypt.hash(
+    password,
+    Number(config.bcrypt_salt_round),
+  );
+  this.password = hashedPassword;
 });
 
 export const UsersModel = model<TUser>('User', userSchema);

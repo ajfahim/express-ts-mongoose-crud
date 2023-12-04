@@ -44,6 +44,7 @@ const updateUserById = async (userId: number, updatedData: TUser) => {
   }
 
   const result = await UsersModel.findOneAndUpdate({ userId }, updatedData, {
+    new: true,
     select: '-password -_id -__v',
   });
 

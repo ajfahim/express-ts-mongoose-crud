@@ -6,11 +6,8 @@ import userValidationSchema, {
 
 const createUser = async (req: Request, res: Response) => {
   try {
-    //get data from body
-    const { user: userData } = req.body;
-
     //data validation
-    const zodParsedData = userValidationSchema.parse(userData);
+    const zodParsedData = userValidationSchema.parse(req.body);
 
     //   call service function
     const data = await usersServices.createUser(zodParsedData);
@@ -37,7 +34,7 @@ const getUserList = async (req: Request, res: Response) => {
     // send response
     res.status(200).json({
       success: true,
-      message: 'Fetched data successfully!',
+      message: 'Users fetched successfully!',
       data,
     });
   } catch (error) {
@@ -58,7 +55,7 @@ const getUserById = async (req: Request, res: Response) => {
     // send response
     res.status(200).json({
       success: true,
-      message: 'Fetched data successfully!',
+      message: 'User fetched successfully!',
       data,
     });
   } catch (error) {
@@ -74,7 +71,7 @@ const getUserById = async (req: Request, res: Response) => {
 const updateUserById = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
-    const updatedData = req.body.user;
+    const updatedData = req.body;
 
     //data validation
     const zodParsedData = userValidationSchema.parse(updatedData);
@@ -87,7 +84,7 @@ const updateUserById = async (req: Request, res: Response) => {
     // send response
     res.status(200).json({
       success: true,
-      message: 'Updated data successfully!',
+      message: 'User updated successfully!',
       data,
     });
   } catch (error) {
@@ -125,7 +122,7 @@ const deleteUserById = async (req: Request, res: Response) => {
 const createOrderByUserId = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
-    const updatedData = req.body.order;
+    const updatedData = req.body;
 
     //data validation
     const zodParsedData = orderValidationSchema.parse(updatedData);

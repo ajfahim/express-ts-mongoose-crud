@@ -3,6 +3,7 @@ import { UsersModel } from './users.model';
 
 const createUser = async (user: TUser) => {
   const result = await UsersModel.create(user);
+  result.password = '';
   return result;
 };
 
